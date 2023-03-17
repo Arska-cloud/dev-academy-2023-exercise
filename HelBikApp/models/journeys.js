@@ -7,8 +7,7 @@ const journeySchema = new Schema({
     end: {type: Date, required: true},
     startStation: {type: String, required: true},
     endStation: {type: String, required: true},
-    distance: {type: String},
-    duration: {type: String},
+    distance: {type: String}
 });
 
 // virtual for journey's URL
