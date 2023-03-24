@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each journey in journey_list
+      li
+        a(href=journey.url) #{journey.station}
+        |  (#{journey.station.duration})
+
+    else
+      li There are no journeys.

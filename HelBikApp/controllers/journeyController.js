@@ -1,8 +1,37 @@
 const Journey = require("../models/journeys");
+const async = require("async");
+
+exports.index = (req,res) => {
+    async.parallel(
+        {
+            journey_count(callback) {
+                Journey.countDocuments({}, callback); 
+            },
+            journey_instance_count(callback) {
+                JourneyInstance.countDocuments({}, callback);
+            },
+        },
+        (err, results) => {
+            res.render("index", {
+                title: "Helsinki Bike Journey",
+                error: err,
+                data: results,
+            });
+        }
+    );
+};
 
 // display list of all journeys
-exports.journey_list = (req,res) => {
-    res.send("NOT IMPLEMENTED: Journey list");
+exports.journey_list = (req,res,next) => {
+    Journey.find({}, "start station")
+    .sort({journey:1})
+    .populate("station")
+    .exec(function (err, list_journeys){
+        if (err) {
+            return next (err);
+        }
+        res.render("journey_list", { journey: "Journey List", journey_list: list_journeys});
+    });
 };
 
 // display detail page for a specific journey

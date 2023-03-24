@@ -4,7 +4,7 @@ const router = express.Router();
 // require controller modules
 const journey_controller = require("../controllers/journeyController");
 
-// GET catalog home page
+// GET database home page
 router.get("/", journey_controller.index);
 
 // GET request for creating a journey. NOTE This must come before routes that display Book (uses id).
